@@ -11,6 +11,7 @@
             border: 2px solid gray;
             width: 100%;
             border-collapse: collapse;
+			text-align: center;
         }
         th,td{
             border: 2px solid gray;
@@ -33,6 +34,9 @@
 
         let resolvedPromises = [];  // after every promise resolved i will push that promise into array.
         //{name: "Promise1", time_taken: 2s}
+
+		  let totalTime = 0;
+		  
         function addPromiseStatus(name, time){
             resolvedPromises.push({name,time});
         }
@@ -43,6 +47,7 @@
             setTimeout(() => {
                 resolve();
                 let end1=new Date().getTime(); // milliseconds from 1970 Jan 1
+				totalTime += (end1-start1)/1000;
                 addPromiseStatus("Promise1",(end1-start1)/1000) // why 1000 bcz convert milliseconds to seconds
             },2000)
           }) 
@@ -52,6 +57,7 @@
             setTimeout(() => {
                 resolve();
                 let end2=new Date().getTime();
+				totalTime += (end2-start2)/1000;
                 addPromiseStatus("Promise2",(end2-start2)/1000)
             },1000)
           }) 
@@ -61,6 +67,7 @@
             setTimeout(() => {
                 resolve();
                 let end3=new Date().getTime();
+				totalTime += (end3-start3)/1000;
                 addPromiseStatus("Promise3",(end3-start3)/1000)
             },3000)
           }) 
@@ -86,6 +93,9 @@
                 tr.innerHTML = `<td>${list[i].name}</td><td>${list[i].time}</td>`;
                 table.append(tr);
             }
+			let tr = document.createElement("tr");
+			tr.innerHTML = `<td>${"Total"}</td><td>${totalTime}</td>`;
+			table.append(tr);
           }
       </script>
 </body>
